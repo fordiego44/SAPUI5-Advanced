@@ -5,6 +5,8 @@ sap.ui.define([
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
+     * @param {typeof sap.ui.model.Filter} Filter
+     * @param {typeof sap.ui.model.FilterOperator} FilterOperator
      */
     function (Controller, Filter, FilterOperator) {
         "use strict";
@@ -80,10 +82,20 @@ sap.ui.define([
             }
         }
 
+        function showPostalCode(oEvent) {
+            var itemPressed = oEvent.getSource(); //obtenemos el item que se ha pulsado
+            var oContext = itemPressed.getBindingContext(); //obtenemos el contexto
+            var objectContext = oContext.getObject(); //obtenemos el objeto sobre el contexto
+
+            sap.m.MessageToast.show(objectContext.PostalCode);
+ 
+        }
+
         return Controller.extend("logaligroup.employees.controller.MainView", {
             onInit: onInit,
             onValidate: myCheck,
             onClearFilter:onClearFilter,
-            onFilter: onFilter
+            onFilter: onFilter,
+            showPostalCode: showPostalCode
         });
     });
