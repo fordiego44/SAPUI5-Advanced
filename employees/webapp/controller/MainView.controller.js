@@ -11,49 +11,46 @@ sap.ui.define([
     function (Controller, Filter, FilterOperator) {
         "use strict";
 
-        function onInit() {
-            var oJSONModel = new sap.ui.model.json.JSONModel();
+        function onInit() { // carga dos modelos, uno con propiedades y otro retorna y lista directamente
+            // var oJSONModel = new sap.ui.model.json.JSONModel();
             var oView = this.getView();
-            var i18nBundle =  this.getOwnerComponent().getModel("i18n").getResourceBundle();
-
-            // var oJSON = {
-            //     employeeId: "12345",
-            //     countryKey: "UK",
-            //     listCountry: [
-            //         {
-            //             key: "US",
-            //             text: i18nBundle.getText("countryUS")
-            //         },
-            //         {
-            //             key: "UK",
-            //             text: i18nBundle.getText("countryUK")
-            //         },
-            //         {
-            //             key: "ES",
-            //             text: i18nBundle.getText("countryES")
-            //         }
-            //     ]
-            // };
-
+            // var i18nBundle =  this.getOwnerComponent().getModel("i18n").getResourceBundle();
+  
             // oJSONModel.setData(oJSON); //setData cuando el objeto se crea aqui mismo y no en un fichero local
-            oJSONModel.loadData("./localService/mockData/Employees.json", false); //carga de datos, y false para que espere a cargar todos los datos
+            var oJSONModelEmpl = new sap.ui.model.json.JSONModel();
+            oJSONModelEmpl.loadData("./localService/mockData/Employees.json", false); //carga de datos, y false para que espere a cargar todos los datos
+            oView.setModel(oJSONModelEmpl, "jsonEmployees");
             // oJSONModel.attachRequestCompleted(function (oEventModel) {
             //     console.log(JSON.stringify(oJSONModel.getData()));
             // });
-            oView.setModel(oJSONModel);
+            var oJSONModelCountries = new sap.ui.model.json.JSONModel();
+            oJSONModelCountries.loadData("./localService/mockData/Countries.json", false); //carga de datos, y false para que espere a cargar todos los datos
+            oView.setModel(oJSONModelCountries, "jsonCountries");
+
+            var oJSONModelConfig = new sap.ui.model.json.JSONModel({
+                visibleID: true,
+                visibleName: true,
+                visibleCountry: true,
+                visibleCity: false,
+                visibleBtnShowCity: true,
+                visibleBtnHideCity: false
+                
+            });
+
+            oView.setModel(oJSONModelConfig, "jsonModelConfig");
         }
 
-        function onFilter() {
-            var oJSON = this.getView().getModel().getData();
+        function onFilter() { //realiza un filtro a la lista con id y country definidos
+            var oJSONCountries = this.getView().getModel("jsonCountries").getData();
             
             var filters = [];
 
-            if (oJSON.EmployeeId !== "") {
-                filters.push(new Filter("EmployeeID", FilterOperator.EQ, oJSON.EmployeeId));
+            if (oJSONCountries.EmployeeId !== "") {
+                filters.push(new Filter("EmployeeID", FilterOperator.EQ, oJSONCountries.EmployeeId));
             }
 
-            if (oJSON.CountryKey !== "") {
-                filters.push(new Filter("Country", FilterOperator.EQ, oJSON.CountryKey));
+            if (oJSONCountries.CountryKey !== "") {
+                filters.push(new Filter("Country", FilterOperator.EQ, oJSONCountries.CountryKey));
             }
 
             var oList = this.getView().byId("tableEmployee");
@@ -61,13 +58,13 @@ sap.ui.define([
             oBinding.filter(filters);
         }
         
-        function onClearFilter() {
-            var oModel = this.getView().getModel();
+        function onClearFilter() { //limpia las campos definidos de key y country
+            var oModel = this.getView().getModel("jsonCountries");
             oModel.setProperty("/EmployeeId","");
             oModel.setProperty("/CountryKey","");
         }
 
-        function myCheck() {
+        function myCheck() { // este metdo esta fuera de servicio, realizaba la validacion de numero de caracteres para mostrar u ocultar otros componentes en la vista
             var inputEmployee = this.byId("inputEmployee");
             var valueEmployee = inputEmployee.getValue();
 
@@ -84,11 +81,25 @@ sap.ui.define([
 
         function showPostalCode(oEvent) {
             var itemPressed = oEvent.getSource(); //obtenemos el item que se ha pulsado
-            var oContext = itemPressed.getBindingContext(); //obtenemos el contexto
+            var oContext = itemPressed.getBindingContext("jsonEmployees"); //obtenemos el contexto
             var objectContext = oContext.getObject(); //obtenemos el objeto sobre el contexto
 
             sap.m.MessageToast.show(objectContext.PostalCode);
  
+        }
+
+        function onShowCity() { //al presionar el boton oculta el boton de show y muestra el boton de hide
+            var oJSONModelConfig = this.getView().getModel("jsonModelConfig");
+            oJSONModelConfig.setProperty("/visibleCity", true);
+            oJSONModelConfig.setProperty("/visibleBtnShowCity", false);
+            oJSONModelConfig.setProperty("/visibleBtnHideCity", true);
+        }
+
+        function onHideCity() { //al presionar el boton oculta el boton de hide y muestra el boton de show
+            var oJSONModelConfig = this.getView().getModel("jsonModelConfig");
+            oJSONModelConfig.setProperty("/visibleCity", false);
+            oJSONModelConfig.setProperty("/visibleBtnShowCity", true);
+            oJSONModelConfig.setProperty("/visibleBtnHideCity", false);
         }
 
         return Controller.extend("logaligroup.employees.controller.MainView", {
@@ -96,6 +107,8 @@ sap.ui.define([
             onValidate: myCheck,
             onClearFilter:onClearFilter,
             onFilter: onFilter,
-            showPostalCode: showPostalCode
+            showPostalCode: showPostalCode,
+            onShowCity: onShowCity,
+            onHideCity: onHideCity
         });
     });
