@@ -11,33 +11,8 @@ sap.ui.define([
     function (Controller, Filter, FilterOperator) {
         "use strict";
 
-        function onInit() { // carga dos modelos, uno con propiedades y otro retorna y lista directamente
-            // var oJSONModel = new sap.ui.model.json.JSONModel();
-            var oView = this.getView();
-            // var i18nBundle =  this.getOwnerComponent().getModel("i18n").getResourceBundle();
-  
-            // oJSONModel.setData(oJSON); //setData cuando el objeto se crea aqui mismo y no en un fichero local
-            var oJSONModelEmpl = new sap.ui.model.json.JSONModel();
-            oJSONModelEmpl.loadData("./localService/mockData/Employees.json", false); //carga de datos, y false para que espere a cargar todos los datos
-            oView.setModel(oJSONModelEmpl, "jsonEmployees");
-            // oJSONModel.attachRequestCompleted(function (oEventModel) {
-            //     console.log(JSON.stringify(oJSONModel.getData()));
-            // });
-            var oJSONModelCountries = new sap.ui.model.json.JSONModel();
-            oJSONModelCountries.loadData("./localService/mockData/Countries.json", false); //carga de datos, y false para que espere a cargar todos los datos
-            oView.setModel(oJSONModelCountries, "jsonCountries");
-
-            var oJSONModelConfig = new sap.ui.model.json.JSONModel({
-                visibleID: true,
-                visibleName: true,
-                visibleCountry: true,
-                visibleCity: false,
-                visibleBtnShowCity: true,
-                visibleBtnHideCity: false
-                
-            });
-
-            oView.setModel(oJSONModelConfig, "jsonModelConfig");
+        function onInit() { 
+            this._bus = sap.ui.getCore().getEventBus();
         }
 
         function onFilter() { //realiza un filtro a la lista con id y country definidos
@@ -211,9 +186,12 @@ sap.ui.define([
 
         }   
 
-        
+        function showEmployee(oEvent) {
+            var path = oEvent.getSource().getBindingContext("jsonEmployees").getPath();
+            this._bus.publish("flexible", "showEmployee",path);
+        }
 
-        return Controller.extend("logaligroup.employees.controller.MainView", {
+        return Controller.extend("logaligroup.employees.controller.MasterEmployee", {
             onInit: onInit,
             onValidate: myCheck,
             onClearFilter:onClearFilter,
@@ -222,7 +200,8 @@ sap.ui.define([
             onShowCity: onShowCity,
             onHideCity: onHideCity,
             onCloseOrders: onCloseOrders,
-            showOrders: showOrders
+            showOrders: showOrders,
+            showEmployee:showEmployee
             
         });
     });

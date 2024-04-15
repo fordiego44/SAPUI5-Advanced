@@ -1,15 +1,13 @@
 <mvc:View 
     xmlns:mvc="sap.ui.core.mvc" 
     xmlns="sap.m" 
-    xmlns:core="sap.ui.core" 
-    controllerName="logaligroup.employees.controller.MainView" 
-    displayBlock="true">
-    <Shell id="shell">
-        <App id="app">
-            <pages>
+    xmlns:core="sap.ui.core"  
+    controllerName="logaligroup.employees.controller.MasterEmployee" 
+    displayBlock="true"> 
+      
                 <Page id="page" title="{i18n>title}">
                     <content>
-                        <HBox >
+                        <HBox wrap="Wrap">
                             <Label id="labelEmploye" labelFor="inputEmployee" text="{i18n>labelEmployee}" class="sapUiSmallMargin"/>
                             <!-- <Input id="inputEmployee" value="{/EmployeeId}"  maxLength="6" width="200px" class="sapUiSmallMarginEnd" liveChange="onValidate"></Input> -->
                             <Input id="inputEmployee" value="{jsonCountries>/EmployeeId}"  maxLength="6" width="200px" class="sapUiSmallMarginEnd"  ></Input>
@@ -25,7 +23,5 @@
                         <core:Fragment fragmentName="logaligroup.employees.fragment.TableEmployee" type="XML" />  
                     </content>
                 </Page>
-            </pages>
-        </App>
-    </Shell>
+       
 </mvc:View>

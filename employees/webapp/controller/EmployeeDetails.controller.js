@@ -5,8 +5,10 @@ sap.ui.define(
     function(BaseController) {
       "use strict";
   
-      return BaseController.extend("logaligroup.employees.controller.App", {
-        onInit: function() {
+      return BaseController.extend("logaligroup.employees.controller.EmployeeDetails", {
+        onInit: function() {  
+
+          
         }
       });
     }
