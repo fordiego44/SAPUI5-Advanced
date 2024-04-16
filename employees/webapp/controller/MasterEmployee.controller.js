@@ -189,6 +189,8 @@ sap.ui.define([
         function showEmployee(oEvent) {
             var path = oEvent.getSource().getBindingContext("jsonEmployees").getPath();
             this._bus.publish("flexible", "showEmployee",path);
+
+            
         }
 
         return Controller.extend("logaligroup.employees.controller.MasterEmployee", {

@@ -2,10 +2,10 @@ sap.ui.define(
     [
         "sap/ui/core/mvc/Controller"
     ],
-    function(BaseController) {
+    function(Controller) {
       "use strict";
   
-      return BaseController.extend("logaligroup.employees.controller.Main", {
+      return Controller.extend("logaligroup.employees.controller.Main", {
         onInit: function() { // carga dos modelos, uno con propiedades y otro retorna y lista directamente
 
           // var oJSONModel = new sap.ui.model.json.JSONModel();
@@ -46,6 +46,10 @@ sap.ui.define(
           var detailView = this.getView().byId("detailEmployeeView");
           detailView.bindElement("jsonEmployees>"+ path);
           this.getView().getModel("jsonLayout").setProperty("/ActiveKey", "TwoColumnsMidExpanded");
+
+          var incidenceModel = new sap.ui.model.json.JSONModel([]);
+          detailView.setModel(incidenceModel, "incidenceModel");
+          detailView.byId("tableIncidence").removeAllContent();
         }
       });
     }
