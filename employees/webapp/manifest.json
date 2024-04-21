@@ -16,7 +16,7 @@
             "toolsId": "f8f6acae-032f-4869-9ec8-541276e5d460"
         },
         "dataSources": {
-            "northwind": {
+            "Northwind": {
                 "uri": "/v2/northwind/northwind.svc/",
                 "type": "OData",
                 "settings": {
@@ -30,7 +30,7 @@
                 "type": "OData",
                 "settings": {
                     "annotations": [],
-                    "localUri": "localService/YSAPUI5_SRV_011/metadata.xml",
+                    "localUri": "localService/YSAPUI5_SRV_01/metadata.xml",
                     "odataVersion": "2.0"
                 }
             }
