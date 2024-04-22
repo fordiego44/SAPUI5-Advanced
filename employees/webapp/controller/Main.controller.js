@@ -57,7 +57,7 @@ sap.ui.define(
           detailView.setModel(incidenceModel, "incidenceModel");
           detailView.byId("tableIncidence").removeAllContent();
 
-          // this.onReadODataIncidence(this._detailEmployeeView.getBindingContext("odataNorthwind").getObject().EmployeeID);
+          this.onReadODataIncidence(this._detailEmployeeView.getBindingContext("odataNorthwind").getObject().EmployeeID);
         },
 
 
@@ -66,7 +66,7 @@ sap.ui.define(
           var employeeId = this._detailEmployeeView.getBindingContext("odataNorthwind").getObject().EmployeeID;
           var incidenceModel = this._detailEmployeeView.getModel("incidenceModel").getData(); 
             
-          if (typeof incidenceModel[data.incidenceRow].IncidenceId == 'undefined') {
+          if (typeof incidenceModel[data.incidenceRow].IncidenceId == 'undefined') {  
 
             var body = {
               SapId: this.getOwnerComponent().SapId,
@@ -76,9 +76,9 @@ sap.ui.define(
               Reason: incidenceModel[data.incidenceRow].Reason
             };
             
-            this.getView().getView().getModel("incidenceModel").create("/IncidentsSet", body, {
+            this.getView().getModel("incidenceModel").create("/IncidentsSet", body, {
               success: function () {
-                // this.onReadODataIncidence.bind(this)(employeeId);
+                this.onReadODataIncidence.bind(this)(employeeId);
                 sap.m.MessageToast.show( oResourceBundle.getText("odataSaveOK") );
               }.bind(this),
               error: function (e) {
@@ -90,10 +90,10 @@ sap.ui.define(
             sap.m.MessageToast.show( oResourceBundle.getText("odataNoChanges") );
           }
         },
-        
+         
         onReadODataIncidence: function (employeeID) {
           this.getView().getModel("incidenceModel").read("/IncidentsSet", {
-            filter:[
+            filters:[
               new sap.ui.model.Filter("SapId", "EQ", this.getOwnerComponent().SapId),
               new sap.ui.model.Filter("EmployeeId", "EQ", employeeID.toString())
             ],
@@ -109,12 +109,15 @@ sap.ui.define(
                 newIncidence.bindElement("incidenceModel>/"+incidence);
                 tableIncidence.addContent(newIncidence);
               }
+         
             }.bind(this),
             error: function (e) {
               
             }
           });
         }
+      
+      
       });
     }
   );

@@ -30,8 +30,7 @@ sap.ui.define([
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
             },
-            // SapId: "dcondori@rivercon.com"
-            SapId: "abrahamdom.sap@gmail.com"
+            SapId: "dcondori@rivercon.com"  
         });
     }
 );
