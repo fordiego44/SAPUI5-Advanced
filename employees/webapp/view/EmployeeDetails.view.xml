@@ -56,7 +56,7 @@
                 </FlexBox>
             </Panel>
 
-            <Panel class="sapUiSic  eCompact" backgroundDesign="Transparent">
+            <Panel class="sapUiSic  eCompact" backgroundDesign="Transparent"> 
                 <headerToolbar>
                     <Toolbar >
                         <Title text="{i18n>incidence} {= ${odataNorthwind>Country} !== 'USA' ? ${i18n>europe} : ${i18n>us}  }"></Title>
