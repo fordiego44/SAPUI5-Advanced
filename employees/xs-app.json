@@ -16,10 +16,10 @@
       "destination": "ui5"
     },
     {
-      "source": "^/sap/opu/odata/sap/YSAPUI5_SRV_01/", 
-      "destination": "logaligroupERP",
       "authenticationType": "none",
-      "csrfProtection": false
+      "csrfProtection": false,
+      "source": "^/sap/opu/odata/sap/YSAPUI5_SRV_01/", 
+      "destination": "logaligroupERP"
     },
     {
       "source": "^/test-resources/(.*)$",

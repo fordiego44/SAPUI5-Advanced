@@ -44,6 +44,7 @@ sap.ui.define(
 
           this._bus = sap.ui.getCore().getEventBus(); 
           this._bus.subscribe("flexible", "showEmployee", this.showEmployeeDetails, this); 
+          this._bus.subscribe("incidence", "onSaveIncidence", this.onSaveODataIncidence, this); 
         },
         showEmployeeDetails: function (category, nameEvent, path) {
           var detailView = this.getView().byId("detailEmployeeView");
@@ -65,7 +66,7 @@ sap.ui.define(
             var body = {
               SapId: this.getOwnerComponent().SapId,
               EmployeeId: employeeId.toString(),
-              CreationDate: incidenceModel[data.incidenceRow].CreationDate,
+              CreationDate: incidenceModel[data.incidenceRow].CreationDate, 
               Type: incidenceModel[data.incidenceRow].Type,
               Reason: incidenceModel[data.incidenceRow].Reason
             };
