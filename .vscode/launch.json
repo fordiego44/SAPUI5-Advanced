@@ -23,7 +23,7 @@
       "outputCapture": "std",
       "env": {
         "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/logali/employees\"}",
-        "FIORI_TOOLS_BACKEND_CONFIG": "[{\"destination\":\"Northwind\",\"path\":\"/v2\"},{\"destination\":\"logaligroupERP\",\"path\":\"/v2\"}]",
+        "FIORI_TOOLS_BACKEND_CONFIG": "[{\"path\":\"/v2/northwind/northwind.svc/\",\"url\":\"https://services.odata.org/\",\"destination\":\"Northwind\"},{\"destination\":\"logaligroupERP\",\"path\":\"/v2/northwind/northwind.svc/\"}]",
         "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false"
       }
     }

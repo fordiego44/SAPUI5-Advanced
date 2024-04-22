@@ -43,7 +43,7 @@ sap.ui.define(
           oView.setModel(oJSONModelConfig, "jsonModelConfig");
 
           this._bus = sap.ui.getCore().getEventBus(); 
-          this._bus.subscribe("flexible", "showEmployee", this.showEmployeeDetails, this);
+          this._bus.subscribe("flexible", "showEmployee", this.showEmployeeDetails, this); 
         },
         showEmployeeDetails: function (category, nameEvent, path) {
           var detailView = this.getView().byId("detailEmployeeView");

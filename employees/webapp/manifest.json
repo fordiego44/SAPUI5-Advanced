@@ -16,7 +16,7 @@
             "toolsId": "f8f6acae-032f-4869-9ec8-541276e5d460"
         },
         "dataSources": {
-            "Northwind": {
+            "Northwind.svc": {
                 "uri": "/v2/northwind/northwind.svc/",
                 "type": "OData",
                 "settings": {

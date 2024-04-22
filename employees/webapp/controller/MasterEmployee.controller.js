@@ -79,9 +79,9 @@ sap.ui.define([
 
         function onCloseOrders() { 
             this._oDialogOrders.close();
-        }
+        }  
 
-        function showOrders(oEvent) {
+        function showOrders(oEvent) { 
 
             // Get selected Controller
             var iconPressed = oEvent.getSource();
@@ -93,7 +93,7 @@ sap.ui.define([
                 this._oDialogOrders = sap.ui.xmlfragment("logaligroup.employees.fragment.DialogOrders", this);
                 this.getView().addDependent(this._oDialogOrders);
             }
-
+         
             // Dialog binding to the Context to have access to the data of selected  item
             this._oDialogOrders.bindElement("odataNorthwind>"+oContext.getPath());
             this._oDialogOrders.open();
