@@ -193,6 +193,15 @@ sap.ui.define([
             
         }
 
+        function toOrderDetails(oEvent) {  
+            var orderID = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
+            var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            
+            oRouter.navTo("RouteOrderDetails",{
+                OrderID: orderID 
+            });
+        }
+
         return Controller.extend("logaligroup.employees.controller.MasterEmployee", {
             onInit: onInit,
             onValidate: myCheck,
@@ -203,7 +212,8 @@ sap.ui.define([
             onHideCity: onHideCity,
             onCloseOrders: onCloseOrders,
             showOrders: showOrders,
-            showEmployee:showEmployee
+            showEmployee:showEmployee,
+            toOrderDetails:toOrderDetails
             
         });
     });
