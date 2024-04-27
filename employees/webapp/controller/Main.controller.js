@@ -19,17 +19,17 @@ sap.ui.define(
 
           // oJSONModel.setData(oJSON); //setData cuando el objeto se crea aqui mismo y no en un fichero local
           var oJSONModelEmpl = new sap.ui.model.json.JSONModel();
-          oJSONModelEmpl.loadData("./localService/mockData/Employees.json", false); //carga de datos, y false para que espere a cargar todos los datos
+          oJSONModelEmpl.loadData("./model/json/Employees.json", false); //carga de datos, y false para que espere a cargar todos los datos
           oView.setModel(oJSONModelEmpl, "jsonEmployees");
           // oJSONModel.attachRequestCompleted(function (oEventModel) {
           //     console.log(JSON.stringify(oJSONModel.getData()));
           // });
           var oJSONModelCountries = new sap.ui.model.json.JSONModel();
-          oJSONModelCountries.loadData("./localService/mockData/Countries.json", false); //carga de datos, y false para que espere a cargar todos los datos
+          oJSONModelCountries.loadData("./model/json/Countries.json", false); //carga de datos, y false para que espere a cargar todos los datos
           oView.setModel(oJSONModelCountries, "jsonCountries");
 
           var oJSONModelLayout = new sap.ui.model.json.JSONModel();
-          oJSONModelLayout.loadData("./localService/mockData/Layout.json", false); //carga de datos, y false para que espere a cargar todos los datos
+          oJSONModelLayout.loadData("./model/json/Layout.json", false); //carga de datos, y false para que espere a cargar todos los datos
           oView.setModel(oJSONModelLayout, "jsonLayout");
 
           var oJSONModelConfig = new sap.ui.model.json.JSONModel({
